@@ -1,0 +1,67 @@
+using UnityEngine;
+using SDGAdventure.UI;
+
+namespace C3TreasurePuzzle
+{
+    public sealed class C3PlayerInteractor : MonoBehaviour
+    {
+        [SerializeField] private Camera playerCamera;
+        [SerializeField, Min(0.5f)] private float interactionDistance = 3f;
+        [SerializeField] private LayerMask raycastLayers = ~0;
+
+        private C3Interactable currentTarget;
+        private GUIStyle crosshairStyle;
+        private GUIStyle promptStyle;
+
+        public void SetCamera(Camera value) => playerCamera = value;
+
+        private void Awake()
+        {
+            if (playerCamera == null) playerCamera = GetComponentInChildren<Camera>();
+        }
+
+        private void Update()
+        {
+            currentTarget = null;
+            if (playerCamera == null || Cursor.lockState != CursorLockMode.Locked ||
+                C3PuzzleConsole.BlocksGameplayInputThisFrame || C3CompletionScreen.BlocksGameplayInputThisFrame) return;
+
+            // 只看第一個射線命中；牆或非互動物件會阻斷後方目標。
+            Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+            if (Physics.Raycast(ray, out RaycastHit hit, interactionDistance, raycastLayers, QueryTriggerInteraction.Ignore))
+            {
+                C3Interactable candidate = hit.collider.GetComponentInParent<C3Interactable>();
+                if (candidate != null && candidate.isActiveAndEnabled && candidate.CanInteract(gameObject))
+                    currentTarget = candidate;
+            }
+
+            // KeyDown 每次按鍵只觸發一次，不因停留或持續接觸重複執行。
+            if (currentTarget != null && Input.GetKeyDown(KeyCode.E))
+            {
+                currentTarget.Interact(gameObject);
+                // A collected target can disable itself in Interact; hide its prompt this frame.
+                if (currentTarget != null && !currentTarget.CanInteract(gameObject)) currentTarget = null;
+            }
+        }
+
+        private void OnGUI()
+        {
+            if (Cursor.lockState != CursorLockMode.Locked || C3PuzzleConsole.BlocksGameplayInputThisFrame ||
+                C3CompletionScreen.BlocksGameplayInputThisFrame) return;
+            CjkGuiFont.Apply();
+            if (crosshairStyle == null)
+            {
+                crosshairStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontSize = 24 };
+                crosshairStyle.normal.textColor = Color.white;
+                promptStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontSize = 18 };
+                promptStyle.normal.textColor = Color.white;
+            }
+
+            float centerX = Screen.width * 0.5f;
+            float centerY = Screen.height * 0.5f;
+            GUI.Label(new Rect(centerX - 15f, centerY - 15f, 30f, 30f), "+", crosshairStyle);
+            if (currentTarget != null)
+                GUI.Label(new Rect(centerX - 220f, centerY + 28f, 440f, 32f), currentTarget.DisplayName + "  [E] 互動", promptStyle);
+        }
+    }
+}

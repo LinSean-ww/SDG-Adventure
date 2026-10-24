@@ -4,5 +4,12 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/M6_DevelopmentSelection.unity
+    guid: c0cc22a26ea9f2f42a77f309b3964090
+  - enabled: 1
+    path: Assets/_Modules_/C3_TreasurePuzzle/ProjectContent/Assets/_C3_TreasurePuzzle/Scenes/C_Main.unity
+    guid: e86b74fb01731774ca2319c713131b2b
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0
