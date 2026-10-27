@@ -1,4 +1,0 @@
-source=original procedural synthesis by this project
-ambientClip=A_DormantFactoryHum
-activationClip=A_PurifierActivation
-activationHook=C3DeviceState.Activated

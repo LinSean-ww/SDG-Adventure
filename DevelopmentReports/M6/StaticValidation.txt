@@ -1,9 +1,0 @@
-source_inventory_rows=57
-compared_guid_rows=32
-guid_mismatch=0
-all_asset_guid_duplicates=0
-runtime_missing_meta=0
-runtime_unresolved_guid=0
-source_baseline_hash_mismatch=0
-target_unmodified_hash_mismatch=0
-intentional_modified_runtime_script=C3CompletionScreen.cs

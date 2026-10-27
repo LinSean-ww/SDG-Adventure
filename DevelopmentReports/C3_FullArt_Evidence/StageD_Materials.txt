@@ -1,7 +1,0 @@
-generatedTextures=9
-createdMaterials=15
-artRenderersAssigned=82
-factoryCSubmeshOverrides=6
-M2Floor2=grating
-M2Stairs=grating
-originalFBXAsset=unchanged

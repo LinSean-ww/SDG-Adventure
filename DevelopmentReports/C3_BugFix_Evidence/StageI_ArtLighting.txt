@@ -1,4 +1,0 @@
-ambient=RGBA(0.340, 0.360, 0.380, 1.000)
-directionalIntensity=0.36
-WestPipeInspection=(-24.480,4.150,11.000) pointLightIntensity=0.72 noRealtimeShadows=true wallMounted=true
-TraditionalChineseSignCharacterSize=0.015

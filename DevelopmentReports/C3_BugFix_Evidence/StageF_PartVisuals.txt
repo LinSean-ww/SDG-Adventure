@@ -1,4 +1,0 @@
-M3_Fuse id=fuse world=(-20.000,0.980,22.000) originalCollider=CapsuleCollider newVisualRenderers=5
-M3_ControlChip id=control_chip world=(-12.500,4.900,18.500) originalCollider=BoxCollider newVisualRenderers=11
-M3_FilterModule id=filter_module world=(-4.000,1.030,18.000) originalCollider=SphereCollider newVisualRenderers=14
-M2_TestInteractable=C3TestInteractable and BoxCollider retained; industrial terminal visible

@@ -1,7 +1,0 @@
-runtime_inventory_rows=57
-source_baseline_hash_mismatch=0
-target_unmodified_hash_mismatch=0
-preserved_guid_mismatch=0
-graphics_quality_hash_mismatch=0
-scene_sha256=ddcda92b04cc60062b9f2cadf6080c9ab13da11726de0bbb29b9d5ca962192e6
-fbx_sha256=bc6fb179fffb74fd7fa11434c28d53e17bb2413b3f7a9032fbb309440e4a2058

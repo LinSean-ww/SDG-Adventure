@@ -1,8 +1,0 @@
-C3_M2_CANDIDATE_CHECK Unity=2023.1.22f1 mesh=factory
-CANDIDATE PositiveControl_FBXFloor center=(-12.5000,0.5000,12.5000) size=(1.0000,0.3000,1.0000) factoryMeshHit=True otherHits=C_CollisionProxies/C_Floor
-CANDIDATE PositiveControl_FBXWestWall center=(-25.0000,5.0000,12.0000) size=(0.5000,1.0000,1.0000) factoryMeshHit=True otherHits=C_CollisionProxies/C_Wall_2
-CANDIDATE MainDeck_and_Standing center=(-13.5000,5.3000,15.4000) size=(17.0000,2.0000,3.2000) factoryMeshHit=False otherHits=
-CANDIDATE ChipBay_and_Standing center=(-12.5000,5.3000,18.5000) size=(3.0000,2.0000,3.0000) factoryMeshHit=False otherHits=
-CANDIDATE ObservationDeck_and_Standing center=(-7.0000,5.3000,18.5000) size=(4.0000,2.0000,3.0000) factoryMeshHit=False otherHits=
-CANDIDATE WestStair_and_Standing center=(-21.1000,3.4500,9.9600) size=(1.8000,5.7000,7.9200) factoryMeshHit=False otherHits=
-CANDIDATE EastStair_and_Standing center=(-5.9000,3.4500,9.9600) size=(1.8000,5.7000,7.9200) factoryMeshHit=False otherHits=

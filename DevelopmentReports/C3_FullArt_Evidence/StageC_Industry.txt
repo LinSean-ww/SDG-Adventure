@@ -1,5 +1,0 @@
-machineAssemblies=10 artColliders=14
-ray=Fuse firstHit=M3_Fuse
-ray=Chip firstHit=M3_ControlChip
-ray=Filter firstHit=M3_FilterModule
-ray=Console firstHit=M4_PuzzleConsole

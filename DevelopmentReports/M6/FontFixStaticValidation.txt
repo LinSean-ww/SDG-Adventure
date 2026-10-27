@@ -1,9 +1,0 @@
-source_m6_inventory_files=98
-source_hash_mismatch=0
-preserved_source_guids=32
-guid_mismatch=0
-scene_matches_source=True
-fbx_matches_source=True
-light_fix_present=True
-font_sha256=dce08bd4fd91aa8aa76ed8fea4b694c2dfb8550f67871e326843212ddbeb88b4
-license_in_build_matches=True
