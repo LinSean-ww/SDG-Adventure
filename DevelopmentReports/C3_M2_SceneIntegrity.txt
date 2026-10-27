@@ -1,0 +1,8 @@
+C3 M2 scene integrity check
+Baseline backup SHA256=ddcda92b04cc60062b9f2cadf6080c9ab13da11726de0bbb29b9d5ca962192e6
+Original serialized blocks=179
+New serialized blocks=825
+Missing original IDs=0 
+Changed original IDs=1 9223372036854775807
+Expected changed ID 9223372036854775807 = SceneRoots list appending C_TwoFloor_Blockout.
+Original GameObject/Transform/Component/PrefabInstance blocks unchanged=true

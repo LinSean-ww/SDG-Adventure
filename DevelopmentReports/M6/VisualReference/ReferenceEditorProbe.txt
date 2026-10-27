@@ -1,0 +1,100 @@
+﻿scene=Assets/_C3_TreasurePuzzle/Scenes/C_Main.unity
+pipeline=Built-in
+quality=Ultra; shadows=All
+ambientMode=Skybox; intensity=1; skybox=Default-Skybox
+ambientSky=RGBA(0.212, 0.227, 0.259, 1.000); ambientEquator=RGBA(0.114, 0.125, 0.133, 1.000); ambientGround=RGBA(0.047, 0.043, 0.035, 1.000)
+ambientProbeL00=0,0,0
+lightmaps=0; lightingData=NULL
+sun=Directional Light
+LIGHT Directional Light type=Directional enabled=True intensity=1 color=RGBA(1.000, 1.000, 1.000, 1.000) shadows=None bake=Realtime
+LIGHT M5_ActivationLight type=Point enabled=True intensity=1 color=RGBA(1.000, 1.000, 1.000, 1.000) shadows=None bake=Realtime
+rendererCount=35; nullSlots=0; unsupportedShaders=0; blackColors=0
+SCENE_MATERIAL 7 Default-Material | Standard | RGBA(1.000, 1.000, 1.000, 1.000)
+SCENE_MATERIAL 4 siteC_wall_1 | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 4 siteC_wall_4 | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 4 M4_ConsoleScreen | Standard | RGBA(0.040, 0.650, 0.720, 1.000)
+SCENE_MATERIAL 3 M3_PlannedConsoleBeacon | Standard | RGBA(0.050, 0.800, 0.880, 1.000)
+SCENE_MATERIAL 1 FNC_FactoryNormalColor | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 out_Site_wall | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 siteB_floor | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 siteD_wall_3 | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 Pillar | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 siteA_Grund_NC | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 siteB_wall_1 | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 door_frame | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 siteB_chimney | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 siteB_ceiling | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 siteC_floor | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 siteC_ceiling | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 siteC_Big_Chimney | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 OutSideCore | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 CoreLine | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 LineOutPut | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 InSideCore | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 siteD_Big_Bucket | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 siteD_wall_1 | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 siteB_wall_4 | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 siteC_wall_2 | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 siteC_wall_3 | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 siteD_wall_2 | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 siteD_wall_4 | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 siteB_wall_3 | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 siteB_wall_2 | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 siteD_floor | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 siteD_ceiling | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 garden | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 FrontDoorGard | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 fence.004 | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 fence.005 | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 fence.003 | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 roadplane | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 road | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 fence.008 | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 fence.007 | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 fence.006 | Standard | RGBA(0.906, 0.906, 0.906, 1.000)
+SCENE_MATERIAL 1 M4_ConsoleShell | Standard | RGBA(0.110, 0.170, 0.210, 1.000)
+SCENE_MATERIAL 1 M4_ConsoleTrim | Standard | RGBA(0.470, 0.590, 0.620, 1.000)
+SCENE_MATERIAL 1 M3_Fuse | Standard | RGBA(1.000, 0.922, 0.016, 1.000)
+SCENE_MATERIAL 1 M3_ControlChip | Standard | RGBA(0.000, 1.000, 1.000, 1.000)
+SCENE_MATERIAL 1 M3_FilterModule | Standard | RGBA(0.000, 1.000, 0.000, 1.000)
+MODEL_SUBASSETS=93
+MODEL_MATERIAL fence.005 shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL siteD_wall_3 shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL road shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL siteB_ceiling shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL siteC_wall_3 shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL fence.008 shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL siteC_ceiling shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL siteB_wall_3 shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL LineOutPut shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL siteB_floor shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL siteB_wall_4 shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL OutSideCore shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL siteC_floor shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL siteD_wall_4 shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL FrontDoorGard shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL siteC_wall_2 shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL siteD_floor shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL roadplane shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL Pillar shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL siteC_wall_1 shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL InSideCore shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL CoreLine shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL siteD_ceiling shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL out_Site_wall shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL fence.006 shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL door_frame shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL siteC_Big_Chimney shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL siteA_Grund_NC shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL siteB_wall_1 shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL siteD_wall_2 shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL FNC_FactoryNormalColor shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL fence.003 shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL siteB_chimney shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL siteB_wall_2 shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL siteD_wall_1 shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL siteC_wall_4 shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL siteD_Big_Bucket shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL fence.007 shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL fence.004 shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx
+MODEL_MATERIAL garden shader=Standard color=RGBA(0.906, 0.906, 0.906, 1.000) path=Assets/_C3_TreasurePuzzle/Models/ONLYfactory.fbx

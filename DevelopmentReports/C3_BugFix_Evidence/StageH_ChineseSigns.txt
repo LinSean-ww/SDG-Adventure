@@ -1,0 +1,4 @@
+Plate_ElectricalIsolation text=高壓危險|維修前請切斷電源 world=(-24.700,2.550,17.800) euler=(0.000,270.000,0.000) font=NotoSansCJKtc-Regular
+Plate_Purifier03 text=03 號淨化設備|設備停止運作 world=(-12.500,2.850,8.280) euler=(0.000,0.000,0.000) font=NotoSansCJKtc-Regular
+Log_UpperBayChipTransfer text=維修紀錄 07|控制晶片：二樓維修區|淨化設備已離線 world=(-12.500,5.860,19.770) euler=(0.000,0.000,0.000) font=NotoSansCJKtc-Regular
+fontAsset=Assets/Resources/Fonts/NotoSansCJKtc-Regular.otf (existing M6 asset; OFL notice in Assets/StreamingAssets/FontLicenses)

@@ -1,0 +1,6 @@
+DirectC3 ambientL00=0.1802838,0.2257141,0.3069229 skybox=Default-Skybox ambientIntensity=1 lightmaps=0 quality=Ultra cameraClear=Skybox cameraPos=(-21.00, 2.08, 4.00) cameraRot=(0.00, 90.00, 0.00)
+DirectC3 meanBrightness=153.06 darkFraction=0.0008
+FromSelection ambientL00=0.1802838,0.2257141,0.3069229 skybox=Default-Skybox ambientIntensity=1 lightmaps=0 quality=Ultra cameraClear=Skybox cameraPos=(-21.00, 2.08, 4.00) cameraRot=(0.00, 90.00, 0.00)
+FromSelection meanBrightness=153.06 darkFraction=0.0008
+AfterGIUpdate ambientL00=0.1802838,0.2257141,0.3069229 skybox=Default-Skybox ambientIntensity=1 lightmaps=0 quality=Ultra cameraClear=Skybox cameraPos=(-21.00, 2.08, 4.00) cameraRot=(0.00, 90.00, 0.00)
+AfterGIUpdate meanBrightness=153.06 darkFraction=0.0008

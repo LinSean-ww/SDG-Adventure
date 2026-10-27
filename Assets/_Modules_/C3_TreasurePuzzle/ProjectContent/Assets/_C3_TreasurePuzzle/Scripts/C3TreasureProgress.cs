@@ -17,7 +17,7 @@ namespace C3TreasurePuzzle
         public bool AllPartsCollected => collected.Contains(FuseId) && collected.Contains(ChipId) && collected.Contains(FilterId);
         public string Objective => AllPartsCollected ? "零件收集完成，請前往控制台" :
             !HasPart(FuseId) ? "線索：到 C 區西側尋寶標記附近找保險絲" :
-            !HasPart(ChipId) ? "線索：控制晶片在 C 區中央通道旁" :
+            !HasPart(ChipId) ? "線索：控制晶片在 C 區二樓高架維修平台，從西側樓梯上去" :
             "線索：過濾模組靠近東北側控制台標記";
         public string LastFeedback { get; private set; } = "";
 

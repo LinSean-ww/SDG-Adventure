@@ -1,0 +1,3 @@
+pipeAndMountColliders=32
+crossBraceColliders=8
+westPipeRayFirst=Collision_MainWestTrunk

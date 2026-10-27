@@ -1,0 +1,4 @@
+artVisualMeshes=30
+m2PhysicalColliders=157
+artColliders=0
+closedWhiteRailRenderers=0

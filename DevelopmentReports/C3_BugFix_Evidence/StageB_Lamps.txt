@@ -1,0 +1,5 @@
+Warm_EntrySafety bulb=(-20.900,6.800,4.100) ceilingPlateTop=9.900
+Warm_WestService bulb=(-22.000,7.150,19.200) ceilingPlateTop=9.900
+Warm_CentralReactor bulb=(-12.500,7.100,9.500) ceilingPlateTop=9.900
+Warm_EastService bulb=(-4.100,7.100,13.400) ceilingPlateTop=9.900
+Warm_UpperWalkway bulb=(-14.000,8.050,15.500) ceilingPlateTop=9.900

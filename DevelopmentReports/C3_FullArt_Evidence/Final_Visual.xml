@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-26 13:25:50Z" end-time="2026-10-26 13:25:51Z" duration="0.4809196">
+  <test-suite type="TestSuite" id="1000" name="My project" fullname="My project" runstate="Runnable" testcasecount="28" result="Passed" start-time="2026-10-26 13:25:50Z" end-time="2026-10-26 13:25:51Z" duration="0.480920" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1015" name="M6Integration.PlayModeTests.dll" fullname="C:/Users/h7796/Desktop/Project/Codex Work/Unity/SDG Adventure/Library/ScriptAssemblies/M6Integration.PlayModeTests.dll" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-10-26 13:25:50Z" end-time="2026-10-26 13:25:51Z" duration="0.471173" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="14036" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+      </properties>
+      <test-suite type="TestSuite" id="1016" name="M6IntegrationTests" fullname="M6IntegrationTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-10-26 13:25:50Z" end-time="2026-10-26 13:25:51Z" duration="0.469538" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties>
+          <property name="platform" value="PlayMode" />
+        </properties>
+        <test-suite type="TestFixture" id="1001" name="C3FactoryFullArtTests" fullname="M6IntegrationTests.C3FactoryFullArtTests" classname="M6IntegrationTests.C3FactoryFullArtTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-26 13:25:50Z" end-time="2026-10-26 13:25:51Z" duration="0.467831" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties>
+            <property name="platform" value="PlayMode" />
+          </properties>
+          <test-case id="1004" name="CaptureFinalFactoryViews" fullname="M6IntegrationTests.C3FactoryFullArtTests.CaptureFinalFactoryViews" methodname="CaptureFinalFactoryViews" classname="M6IntegrationTests.C3FactoryFullArtTests" runstate="Runnable" seed="1554347769" result="Passed" start-time="2026-10-26 13:25:50Z" end-time="2026-10-26 13:25:51Z" duration="0.452104" asserts="0">
+            <properties>
+              <property name="_JOINTYPE" value="UnityCombinatorial" />
+              <property name="platform" value="PlayMode" />
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+          </test-case>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

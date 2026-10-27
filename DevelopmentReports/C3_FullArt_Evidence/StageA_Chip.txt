@@ -1,0 +1,7 @@
+Unity=2023.1.22f1
+partCount=3
+fuse=(-20.000,0.980,22.000)
+control_chip=(-12.500,4.900,18.500)
+filter_module=(-4.000,1.030,18.000)
+chipRayWithin3m=true firstHit=M3_ControlChip
+objective=線索：到 C 區西側尋寶標記附近找保險絲

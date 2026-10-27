@@ -1,0 +1,51 @@
+Factory renderer world bounds=(-25.025,0.000,-25.025)..(25.024,46.282,25.025)
+Submesh 0 material=FNC_FactoryNormalColor bounds=(-25.025,0.000,-25.025)..(25.024,20.133,25.025)
+Submesh 1 material=out_Site_wall bounds=(-25.025,0.500,-25.024)..(25.024,20.090,25.025)
+Submesh 2 material=siteB_floor bounds=(-0.007,0.500,-0.025)..(25.024,0.500,25.020)
+Submesh 3 material=siteD_wall_3 bounds=(-25.024,0.500,-0.100)..(0.025,20.000,0.005)
+Submesh 4 material=Pillar bounds=(-25.025,11.643,-25.025)..(0.025,14.429,-10.713)
+Submesh 5 material=siteA_Grund_NC bounds=(0.000,0.500,-25.024)..(25.024,0.500,-0.006)
+Submesh 6 material=siteB_wall_1 bounds=(-0.020,0.500,0.512)..(25.014,5.022,0.523)
+Submesh 7 material=door_frame bounds=(-15.000,0.500,-0.025)..(14.986,3.500,25.020)
+Submesh 8 material=siteB_chimney bounds=(19.983,5.300,19.983)..(24.517,13.186,24.517)
+Submesh 9 material=siteB_ceiling bounds=(-0.021,4.912,0.000)..(25.018,8.489,25.018)
+Submesh 10 material=M_AgedConcrete_Wall bounds=(-25.018,0.500,0.314)..(0.018,10.000,0.325)
+Submesh 11 material=M_AgedConcrete_Floor bounds=(-25.024,0.500,-0.005)..(-0.290,0.500,25.017)
+Submesh 12 material=M_AgedConcrete_Ceiling bounds=(-25.018,10.000,0.300)..(0.018,10.000,25.022)
+Submesh 13 material=siteC_Big_Chimney bounds=(-17.517,10.000,3.836)..(-3.579,21.617,20.946)
+Submesh 14 material=OutSideCore bounds=(-15.190,10.365,-19.138)..(-9.802,15.703,-13.752)
+Submesh 15 material=CoreLine bounds=(-20.045,11.083,-20.045)..(-4.967,19.269,-4.985)
+Submesh 16 material=LineOutPut bounds=(-20.248,19.144,-20.248)..(-4.752,20.073,-4.752)
+Submesh 17 material=InSideCore bounds=(-15.011,10.654,-18.555)..(-10.116,15.155,-13.829)
+Submesh 18 material=siteD_Big_Bucket bounds=(-17.863,20.000,-17.863)..(-4.273,46.282,-7.137)
+Submesh 19 material=M_AgedConcrete_Wall bounds=(-0.300,0.500,0.000)..(-0.300,10.000,25.000)
+Submesh 20 material=siteD_wall_1 bounds=(-25.000,0.500,-25.025)..(0.000,20.000,-25.000)
+Submesh 21 material=siteB_wall_4 bounds=(25.000,0.500,0.000)..(25.000,5.000,25.000)
+Submesh 22 material=M_AgedConcrete_Wall bounds=(-25.000,0.500,0.005)..(-25.000,10.000,25.000)
+Submesh 23 material=M_AgedConcrete_Wall bounds=(-25.000,0.500,25.000)..(0.000,10.000,25.000)
+Submesh 24 material=siteD_wall_2 bounds=(-25.025,0.500,-25.000)..(-25.000,20.000,0.105)
+Submesh 25 material=siteD_wall_4 bounds=(0.000,0.500,-25.000)..(0.025,20.000,0.105)
+Submesh 26 material=siteB_wall_3 bounds=(0.000,0.500,25.000)..(25.000,5.000,25.000)
+Submesh 27 material=siteB_wall_2 bounds=(0.000,0.500,0.105)..(0.000,4.913,25.000)
+Submesh 28 material=siteD_floor bounds=(-25.000,0.500,-25.000)..(0.000,0.500,0.105)
+Submesh 29 material=siteD_ceiling bounds=(-25.000,20.000,-25.000)..(0.000,25.263,0.000)
+M4_PuzzleConsole path=C_LevelMarkers/PuzzleConsoleArea/M4_PuzzleConsole pos=(-0.900,1.000,18.950) euler=(0.000,0.000,0.000) forward=(0.000,0.000,1.000) scale=(1.000,1.000,1.000)
+  Renderer C_LevelMarkers/PuzzleConsoleArea/M4_PuzzleConsole/Housing enabled=True bounds=(-1.350,0.500,18.675)..(-0.450,1.900,19.225) material=M_WornOliveMachinePaint
+  Renderer C_LevelMarkers/PuzzleConsoleArea/M4_PuzzleConsole/Display enabled=True bounds=(-1.250,1.220,18.655)..(-0.550,1.740,18.680) material=M4_ConsoleScreen
+  Renderer C_LevelMarkers/PuzzleConsoleArea/M4_PuzzleConsole/ControlStrip enabled=True bounds=(-1.250,0.885,18.648)..(-0.550,1.055,18.673) material=M_DarkIndustrialSteel
+  Renderer C_LevelMarkers/PuzzleConsoleArea/M4_PuzzleConsole/StepIndicator1 enabled=True bounds=(-1.195,0.925,18.633)..(-1.065,1.015,18.653) material=M4_ConsoleScreen
+  Renderer C_LevelMarkers/PuzzleConsoleArea/M4_PuzzleConsole/StepIndicator2 enabled=True bounds=(-0.965,0.925,18.633)..(-0.835,1.015,18.653) material=M4_ConsoleScreen
+  Renderer C_LevelMarkers/PuzzleConsoleArea/M4_PuzzleConsole/StepIndicator3 enabled=True bounds=(-0.735,0.925,18.633)..(-0.605,1.015,18.653) material=M4_ConsoleScreen
+  Collider C_LevelMarkers/PuzzleConsoleArea/M4_PuzzleConsole BoxCollider enabled=True trigger=False bounds=(-1.350,0.500,18.675)..(-0.450,1.900,19.225)
+Cyan_Console path=C_Factory_Art/Lighting/Cyan_Console pos=(-1.800,2.650,18.900) euler=(0.000,0.000,0.000) forward=(0.000,0.000,1.000) scale=(1.000,1.000,1.000)
+  Renderer C_Factory_Art/Lighting/Cyan_Console/IndicatorLens enabled=True bounds=(-1.950,2.590,18.750)..(-1.650,2.710,19.050) material=M_CyanInstrument
+Warm_EntrySafety path=C_Factory_Art/Lighting/Warm_EntrySafety pos=(-20.900,6.800,4.100) euler=(0.000,0.000,0.000) forward=(0.000,0.000,1.000) scale=(1.000,1.000,1.000)
+  Renderer C_Factory_Art/Lighting/Warm_EntrySafety/IndicatorLens enabled=True bounds=(-21.050,6.740,3.950)..(-20.750,6.860,4.250) material=M_WarmIndustrialLamp
+Warm_WestService path=C_Factory_Art/Lighting/Warm_WestService pos=(-22.000,7.150,19.200) euler=(0.000,0.000,0.000) forward=(0.000,0.000,1.000) scale=(1.000,1.000,1.000)
+  Renderer C_Factory_Art/Lighting/Warm_WestService/IndicatorLens enabled=True bounds=(-22.150,7.090,19.050)..(-21.850,7.210,19.350) material=M_WarmIndustrialLamp
+Warm_CentralReactor path=C_Factory_Art/Lighting/Warm_CentralReactor pos=(-12.500,7.100,9.500) euler=(0.000,0.000,0.000) forward=(0.000,0.000,1.000) scale=(1.000,1.000,1.000)
+  Renderer C_Factory_Art/Lighting/Warm_CentralReactor/IndicatorLens enabled=True bounds=(-12.650,7.040,9.350)..(-12.350,7.160,9.650) material=M_WarmIndustrialLamp
+Warm_EastService path=C_Factory_Art/Lighting/Warm_EastService pos=(-4.100,7.100,13.400) euler=(0.000,0.000,0.000) forward=(0.000,0.000,1.000) scale=(1.000,1.000,1.000)
+  Renderer C_Factory_Art/Lighting/Warm_EastService/IndicatorLens enabled=True bounds=(-4.250,7.040,13.250)..(-3.950,7.160,13.550) material=M_WarmIndustrialLamp
+Warm_UpperWalkway path=C_Factory_Art/Lighting/Warm_UpperWalkway pos=(-14.000,8.050,15.500) euler=(0.000,0.000,0.000) forward=(0.000,0.000,1.000) scale=(1.000,1.000,1.000)
+  Renderer C_Factory_Art/Lighting/Warm_UpperWalkway/IndicatorLens enabled=True bounds=(-14.150,7.990,15.350)..(-13.850,8.110,15.650) material=M_WarmIndustrialLamp

@@ -1,0 +1,5 @@
+C circular chimney submesh=13; imported material=siteC_Big_Chimney; base color white, likely imported texture and warm-light tint
+sceneInstanceSlot13=M_DarkIndustrialSteel
+sceneInstanceSlot12=M_AgedConcrete_Ceiling
+FBXRootTransform=identity
+sourceFBXAsset=unchanged

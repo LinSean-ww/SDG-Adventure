@@ -1,0 +1,5 @@
+Barrel_East before=(-7.000,0.550,22.800) after=(-6.300,0.550,22.800)
+WasteContainer_B overlap=false
+ChipCyanLight guardMounted=true
+EntryRedLight wallMounted=true
+artRendererOutsideCShell=0

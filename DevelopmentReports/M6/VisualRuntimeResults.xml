@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-24 10:23:13Z" end-time="2026-10-24 10:23:13Z" duration="0.2157467">
+  <test-suite type="TestSuite" id="1000" name="My project" fullname="My project" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-24 10:23:13Z" end-time="2026-10-24 10:23:13Z" duration="0.215747" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1005" name="M6Integration.PlayModeTests.dll" fullname="C:/Users/h7796/Desktop/Project/Codex Work/Unity/SDG Adventure_M6_TEST/Library/ScriptAssemblies/M6Integration.PlayModeTests.dll" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-24 10:23:13Z" end-time="2026-10-24 10:23:13Z" duration="0.210108" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="28836" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+      </properties>
+      <test-suite type="TestSuite" id="1006" name="M6IntegrationTests" fullname="M6IntegrationTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-24 10:23:13Z" end-time="2026-10-24 10:23:13Z" duration="0.209572" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties>
+          <property name="platform" value="PlayMode" />
+        </properties>
+        <test-suite type="TestFixture" id="1003" name="M6VisualRuntimeTests" fullname="M6IntegrationTests.M6VisualRuntimeTests" classname="M6IntegrationTests.M6VisualRuntimeTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-24 10:23:13Z" end-time="2026-10-24 10:23:13Z" duration="0.208560" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties>
+            <property name="platform" value="PlayMode" />
+          </properties>
+          <test-case id="1004" name="DirectVersusSelectionSceneLighting" fullname="M6IntegrationTests.M6VisualRuntimeTests.DirectVersusSelectionSceneLighting" methodname="DirectVersusSelectionSceneLighting" classname="M6IntegrationTests.M6VisualRuntimeTests" runstate="Runnable" seed="195032861" result="Passed" start-time="2026-10-24 10:23:13Z" end-time="2026-10-24 10:23:13Z" duration="0.196868" asserts="0">
+            <properties>
+              <property name="_JOINTYPE" value="UnityCombinatorial" />
+              <property name="platform" value="PlayMode" />
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+          </test-case>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

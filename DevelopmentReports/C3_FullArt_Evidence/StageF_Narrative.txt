@@ -1,0 +1,4 @@
+readableLabels=3
+serviceToolCases=2
+addedColliders=0
+source=original in-project text and Unity primitives
