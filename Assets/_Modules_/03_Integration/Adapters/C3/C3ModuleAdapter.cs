@@ -1,5 +1,6 @@
 using C3TreasurePuzzle;
 using SDGAdventure.ModuleSystem;
+using SDGAdventure.SharedPlayer;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,6 +16,10 @@ namespace SDGAdventure.C3
         private C3TreasureProgress progress;
         private C3PuzzleState puzzle;
         private bool reported;
+        private C3FirstPersonController player;
+        private C3PlayerInteractor interactor;
+        private PlayerTaskJournal journal;
+        private C3TreasureHud hud;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
         private static void Register()
@@ -38,16 +43,36 @@ namespace SDGAdventure.C3
                 { device = item; deviceCount++; }
                 foreach (C3TreasureProgress item in root.GetComponentsInChildren<C3TreasureProgress>(true)) progress = item;
                 foreach (C3PuzzleState item in root.GetComponentsInChildren<C3PuzzleState>(true)) puzzle = item;
-                playerCount += root.GetComponentsInChildren<C3FirstPersonController>(true).Length;
+                foreach (C3TreasureHud item in root.GetComponentsInChildren<C3TreasureHud>(true)) hud = item;
+                foreach (C3FirstPersonController item in root.GetComponentsInChildren<C3FirstPersonController>(true))
+                { player = item; playerCount++; }
+                foreach (C3PlayerInteractor item in root.GetComponentsInChildren<C3PlayerInteractor>(true))
+                    interactor = item;
                 cameraCount += root.GetComponentsInChildren<Camera>(true).Length;
                 listenerCount += root.GetComponentsInChildren<AudioListener>(true).Length;
             }
             if (deviceCount != 1 || progress == null || puzzle == null || playerCount != 1 ||
-                cameraCount != 1 || listenerCount != 1)
+                interactor == null || hud == null || cameraCount != 1 || listenerCount != 1 ||
+                PlayerInputService.Instance == null)
             {
                 Debug.LogError($"C3 scene ownership invalid: devices={deviceCount}, players={playerCount}, cameras={cameraCount}, listeners={listenerCount}");
                 return false;
             }
+            PlayerInputService input = PlayerInputService.Instance;
+            player.UseSharedInput(input);
+            interactor.UseSharedInput(input);
+            PlayerPauseMenu menu = player.GetComponent<PlayerPauseMenu>();
+            if (menu == null) menu = player.gameObject.AddComponent<PlayerPauseMenu>();
+            menu.SetLevelActions(RestartLevel, ReturnToSelection,
+                () => !C3PuzzleConsole.BlocksGameplayInputThisFrame &&
+                      !C3CompletionScreen.BlocksGameplayInputThisFrame);
+            journal = menu.Journal;
+            hud.UseSharedTaskMenu(journal);
+            menu.SetTaskView(hud.OpenTaskSheet, hud.CloseTaskSheet);
+            RefreshTasks();
+            progress.Changed += RefreshTasks;
+            puzzle.Solved += RefreshTasks;
+            device.Completed += RefreshTasks;
             // C_Main uses skybox ambient light and has no Lighting Data asset. A fresh
             // project import can start with a zero ambient probe, leaving unlit factory
             // walls black until Unity refreshes the environment. Refresh once per load.
@@ -73,12 +98,53 @@ namespace SDGAdventure.C3
             reported = coordinator.ReportCompletion(this, result);
         }
 
+        private void RefreshTasks()
+        {
+            if (journal == null || progress == null || puzzle == null || device == null) return;
+            journal.SetTasks(new[]
+            {
+                new PlayerTaskItem(C3TreasureProgress.FuseId, "尋找保險絲", "在 C 區西側尋寶標記附近。",
+                    progress.HasPart(C3TreasureProgress.FuseId)),
+                new PlayerTaskItem(C3TreasureProgress.ChipId, "尋找控制晶片", "在二樓高架維修平台。",
+                    progress.HasPart(C3TreasureProgress.ChipId)),
+                new PlayerTaskItem(C3TreasureProgress.FilterId, "尋找過濾模組", "靠近東北側控制台標記。",
+                    progress.HasPart(C3TreasureProgress.FilterId)),
+                new PlayerTaskItem("c3_puzzle", "完成處理順序解謎", "在控制台依作業先後輸入。",
+                    puzzle.PuzzleSolved),
+                new PlayerTaskItem("c3_activation", "啟動淨化設備", "完成解謎後於控制台確認啟動。",
+                    device.LevelCompleted)
+            });
+        }
+
+        private void RestartLevel()
+        {
+            if (coordinator != null && !coordinator.RestartCurrent(out string error))
+                Debug.LogError("C3 restart failed: " + error);
+        }
+
+        private void ReturnToSelection()
+        {
+            if (coordinator != null && !coordinator.ReturnToSelection(out string error))
+                Debug.LogError("C3 return failed: " + error);
+        }
+
         public void Shutdown()
         {
-            if (device != null) device.Completed -= OnCompleted;
+            if (hud != null) hud.CloseTaskSheet();
+            if (device != null)
+            {
+                device.Completed -= OnCompleted;
+                device.Completed -= RefreshTasks;
+            }
+            if (progress != null) progress.Changed -= RefreshTasks;
+            if (puzzle != null) puzzle.Solved -= RefreshTasks;
             device = null;
             progress = null;
             puzzle = null;
+            player = null;
+            interactor = null;
+            journal = null;
+            hud = null;
             coordinator = null;
         }
 

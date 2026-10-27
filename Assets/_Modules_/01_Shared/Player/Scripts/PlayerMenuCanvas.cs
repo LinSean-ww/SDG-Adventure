@@ -143,10 +143,16 @@ namespace SDGAdventure.SharedPlayer
 
         public void ShowPause(PlayerPauseMenu menu)
         {
-            BeginPanel("暫停", 480f, menu.HasTestReturnPoint ? 350f : 300f);
+            BeginPanel("暫停", 480f, menu.HasLevelActions ? 470f : menu.HasTestReturnPoint ? 350f : 300f);
             AddButton("繼續遊戲", menu.Resume);
             AddButton("操作設定", menu.OpenSettings);
             if (menu.HasTestReturnPoint) AddButton("返回測試起點", menu.ReturnToTestStart);
+            if (menu.HasLevelActions)
+            {
+                AddButton("任務清單", menu.OpenTasksFromPause);
+                AddButton("重新開始本關", menu.RestartLevel);
+                AddButton("返回選關", menu.ReturnToSelection);
+            }
             AddText("Esc：繼續／返回上一層", 34f, 17, TextAnchor.MiddleCenter);
             EndPanel(null, null);
         }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,16 +17,35 @@ namespace SDGAdventure.SharedPlayer
         private InputActionRebindingExtensions.RebindingOperation activeRebind;
         private int rebindFinishedFrame = -1;
         private float previousTimeScale = 1f;
+        private Action restartLevel;
+        private Action returnToSelection;
+        private Func<bool> canOpen;
+        private bool tasksOpenedFromPause;
+        private Action openTaskView;
+        private Action closeTaskView;
 
         public PlayerMenuState State { get; private set; } = PlayerMenuState.Playing;
         public bool HasTestReturnPoint => testReturnPoint != null;
+        public bool HasLevelActions => restartLevel != null && returnToSelection != null;
         public bool IsRebinding => activeRebind != null;
         public string Feedback { get; private set; } = "";
         public PlayerTaskJournal Journal => journal;
         public PlayerMenuCanvas View => view;
+        public bool UsesExternalTaskView => openTaskView != null && closeTaskView != null;
 
         public void SetPlayer(SharedFirstPersonController value) => player = value;
         public void SetTestReturnPoint(Transform value) => testReturnPoint = value;
+        public void SetLevelActions(Action restart, Action returnAction, Func<bool> canOpenMenu)
+        {
+            restartLevel = restart;
+            returnToSelection = returnAction;
+            canOpen = canOpenMenu;
+        }
+        public void SetTaskView(Action open, Action close)
+        {
+            openTaskView = open;
+            closeTaskView = close;
+        }
 
         private void Awake()
         {
@@ -44,7 +64,7 @@ namespace SDGAdventure.SharedPlayer
             {
                 input.PausePressed += Pause;
                 input.TaskListPressed += OpenTasks;
-                input.UiTaskListPressed += CloseTasks;
+                input.UiTaskListPressed += HandleUiTaskList;
                 input.UiCancelPressed += HandleCancel;
             }
             if (journal != null) journal.Changed += RefreshTasks;
@@ -54,21 +74,35 @@ namespace SDGAdventure.SharedPlayer
 
         public void Pause()
         {
-            if (State != PlayerMenuState.Playing || input == null) return;
+            if (State != PlayerMenuState.Playing || input == null || (canOpen != null && !canOpen())) return;
             EnterUi(PlayerMenuState.Paused);
             view.ShowPause(this);
         }
 
         public void OpenTasks()
         {
-            if (State != PlayerMenuState.Playing || input == null) return;
+            if (State != PlayerMenuState.Playing || input == null || (canOpen != null && !canOpen())) return;
+            tasksOpenedFromPause = false;
             EnterUi(PlayerMenuState.Tasks);
-            view.ShowTasks(this, journal);
+            ShowTasks();
+        }
+
+        public void OpenTasksFromPause()
+        {
+            if (State != PlayerMenuState.Paused) return;
+            tasksOpenedFromPause = true;
+            State = PlayerMenuState.Tasks;
+            ShowTasks();
         }
 
         public void CloseTasks()
         {
-            if (State == PlayerMenuState.Tasks) Resume();
+            if (State != PlayerMenuState.Tasks) return;
+            if (UsesExternalTaskView) closeTaskView();
+            if (!tasksOpenedFromPause) { Resume(); return; }
+            tasksOpenedFromPause = false;
+            State = PlayerMenuState.Paused;
+            view.ShowPause(this);
         }
 
         public void OpenSettings()
@@ -90,6 +124,8 @@ namespace SDGAdventure.SharedPlayer
         public void Resume()
         {
             CancelRebind();
+            if (UsesExternalTaskView) closeTaskView();
+            tasksOpenedFromPause = false;
             State = PlayerMenuState.Playing;
             view?.Hide();
             Time.timeScale = previousTimeScale;
@@ -104,6 +140,9 @@ namespace SDGAdventure.SharedPlayer
             player.Teleport(testReturnPoint.position, testReturnPoint.rotation);
             Resume();
         }
+
+        public void RestartLevel() => restartLevel?.Invoke();
+        public void ReturnToSelection() => returnToSelection?.Invoke();
 
         public void BeginRebind(string map, string action, int bindingIndex)
         {
@@ -178,9 +217,25 @@ namespace SDGAdventure.SharedPlayer
             else if (State == PlayerMenuState.Paused) Resume();
         }
 
+        private void HandleUiTaskList()
+        {
+            if (State == PlayerMenuState.Tasks) CloseTasks();
+            else if (State == PlayerMenuState.Paused && UsesExternalTaskView) OpenTasksFromPause();
+        }
+
+        private void ShowTasks()
+        {
+            if (UsesExternalTaskView)
+            {
+                view.Hide();
+                openTaskView();
+            }
+            else view.ShowTasks(this, journal);
+        }
+
         private void RefreshTasks()
         {
-            if (State == PlayerMenuState.Tasks) view.ShowTasks(this, journal);
+            if (State == PlayerMenuState.Tasks && !UsesExternalTaskView) view.ShowTasks(this, journal);
         }
 
         private void OnDisable()
@@ -189,13 +244,14 @@ namespace SDGAdventure.SharedPlayer
             {
                 input.PausePressed -= Pause;
                 input.TaskListPressed -= OpenTasks;
-                input.UiTaskListPressed -= CloseTasks;
+                input.UiTaskListPressed -= HandleUiTaskList;
                 input.UiCancelPressed -= HandleCancel;
                 if (input.Context != PlayerInputContext.Inactive)
                     input.SetContext(PlayerInputContext.Inactive);
             }
             if (journal != null) journal.Changed -= RefreshTasks;
             CancelRebind();
+            if (UsesExternalTaskView) closeTaskView();
             if (State != PlayerMenuState.Playing) Time.timeScale = previousTimeScale;
             view?.Hide();
             Cursor.lockState = CursorLockMode.None;

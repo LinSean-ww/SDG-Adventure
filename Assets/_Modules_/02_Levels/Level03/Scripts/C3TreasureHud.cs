@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using UnityEngine;
 using SDGAdventure.UI;
+using SDGAdventure.SharedPlayer;
 
 namespace C3TreasurePuzzle
 {
@@ -8,6 +10,8 @@ namespace C3TreasurePuzzle
         [SerializeField] private C3TreasureProgress progress;
         private C3DeviceState device;
         private bool taskSheetOpen;
+        private bool sharedTaskControl;
+        private PlayerTaskJournal taskJournal;
         private Vector2 scrollPosition;
         private float feedbackUntil;
         private GUIStyle headingStyle;
@@ -31,6 +35,11 @@ namespace C3TreasurePuzzle
         public bool TaskSheetOpen => taskSheetOpen;
         public bool CollectionFeedbackActive => Time.unscaledTime < feedbackUntil;
         public void SetProgress(C3TreasureProgress value) => progress = value;
+        public void UseSharedTaskMenu(PlayerTaskJournal journal)
+        {
+            taskJournal = journal;
+            sharedTaskControl = journal != null;
+        }
 
         private void Awake()
         {
@@ -46,6 +55,7 @@ namespace C3TreasurePuzzle
         private void OnDisable()
         {
             if (progress != null) progress.Changed -= OnChanged;
+            CloseTaskSheet();
         }
 
         private void OnChanged() => feedbackUntil = Time.unscaledTime + 3f;
@@ -53,22 +63,34 @@ namespace C3TreasurePuzzle
         private void Update()
         {
             // Legacy Input key edge: holding P does not repeatedly toggle the sheet.
-            if (!C3PuzzleConsole.BlocksGameplayInputThisFrame && !C3CompletionScreen.BlocksGameplayInputThisFrame &&
+            if (!sharedTaskControl && !C3PuzzleConsole.BlocksGameplayInputThisFrame &&
+                !C3CompletionScreen.BlocksGameplayInputThisFrame &&
                 Input.GetKeyDown(KeyCode.P)) ToggleTaskSheet();
+        }
+
+        public void OpenTaskSheet() => taskSheetOpen = true;
+
+        public void CloseTaskSheet()
+        {
+            taskSheetOpen = false;
+            scrollPosition = Vector2.zero;
         }
 
         public void ToggleTaskSheet()
         {
-            taskSheetOpen = !taskSheetOpen;
-            if (!taskSheetOpen) scrollPosition = Vector2.zero;
+            if (taskSheetOpen) CloseTaskSheet();
+            else OpenTaskSheet();
         }
+
+        private string InteractionKey => sharedTaskControl && PlayerInputService.Instance != null
+            ? PlayerInputService.Instance.Keybindings.BindingDisplay("Gameplay", "Interact", 0) : "E";
 
         public string GuidanceText => progress == null ? "" : device != null && device.IsActivated
             ? "淨化設備已啟動，本關已完成"
             : device != null && device.Phase == C3DevicePhase.ReadyToActivate
-                ? "解謎已完成，請關閉面板後瞄準控制台按 E\n確認啟動淨化設備"
+                ? "解謎已完成，請關閉面板後瞄準控制台按 " + InteractionKey + "\n確認啟動淨化設備"
                 : progress.AllPartsCollected
-                    ? "零件收集完成，請前往控制台\n東北角青色立柱前的資源處理控制台\n按 E 開啟解謎面板"
+                    ? "零件收集完成，請前往控制台\n東北角青色立柱前的資源處理控制台\n按 " + InteractionKey + " 開啟解謎面板"
                     : progress.Objective;
 
         public string StatusText => progress == null ? "" :
@@ -97,20 +119,20 @@ namespace C3TreasurePuzzle
                 Mathf.Min(desiredHeight, height - margin * 2f));
         }
 
-        // Order: heading, mission, progress, three parts, hint heading, guidance, close hint.
+        // Order: heading, mission, progress, task rows, hint heading, guidance, close hint.
         // OnGUI supplies the height measured from each actual string and its drawing width.
         public static Rect[] CalculateContentRects(float scale, float contentWidth, float[] heights)
         {
-            if (heights == null || heights.Length != 9)
-                throw new System.ArgumentException("Nine measured section heights are required.", nameof(heights));
-            Rect[] rects = new Rect[9];
+            if (heights == null || heights.Length < 7)
+                throw new System.ArgumentException("Measured task section heights are required.", nameof(heights));
+            Rect[] rects = new Rect[heights.Length];
             float x = 8f * scale;
             float width = contentWidth - 16f * scale;
             float y = 10f * scale;
             for (int i = 0; i < rects.Length; i++)
             {
                 rects[i] = new Rect(x, y, width, heights[i]);
-                y += heights[i] + (i == 5 || i == 7 ? 13f : 8f) * scale;
+                y += heights[i] + (i == rects.Length - 4 || i == rects.Length - 2 ? 13f : 8f) * scale;
             }
             return rects;
         }
@@ -141,28 +163,42 @@ namespace C3TreasurePuzzle
             float contentWidth = viewportWidth - 18f * scale; // Reserve the scrollbar width.
             float rowWidth = contentWidth - 16f * scale;
             float textWidth = rowWidth - 20f * scale;
-            string[] labels = {
-                "任務", "尋找淨化設備零件", "收集進度  " + progress.CollectedCount + "/3",
-                "保險絲：" + State(C3TreasureProgress.FuseId),
-                "控制晶片：" + State(C3TreasureProgress.ChipId),
-                "過濾模組：" + State(C3TreasureProgress.FilterId),
-                progress.AllPartsCollected ? "下一步" : "目前線索",
-                GuidanceText, "再按 P 關閉任務表"
-            };
-            GUIStyle[] styles = { headingStyle, missionStyle, progressStyle,
-                progress.HasPart(C3TreasureProgress.FuseId) ? acquiredStyle : missingStyle,
-                progress.HasPart(C3TreasureProgress.ChipId) ? acquiredStyle : missingStyle,
-                progress.HasPart(C3TreasureProgress.FilterId) ? acquiredStyle : missingStyle,
-                smallStyle, hintStyle, smallStyle };
-            float[] heights = new float[9];
+            var labels = new List<string> { "任務", "尋找淨化設備零件",
+                taskJournal == null ? "收集進度  " + progress.CollectedCount + "/3" :
+                    "任務進度  " + taskJournal.CompletedCount + "/" + taskJournal.TotalCount };
+            var styles = new List<GUIStyle> { headingStyle, missionStyle, progressStyle };
+            if (taskJournal != null)
+            {
+                foreach (PlayerTaskItem task in taskJournal.Tasks)
+                {
+                    labels.Add(task.title + "：" + (task.completed ? "已完成" : "進行中") + "\n" + task.description);
+                    styles.Add(task.completed ? acquiredStyle : missingStyle);
+                }
+            }
+            else
+            {
+                labels.Add("保險絲：" + State(C3TreasureProgress.FuseId));
+                labels.Add("控制晶片：" + State(C3TreasureProgress.ChipId));
+                labels.Add("過濾模組：" + State(C3TreasureProgress.FilterId));
+                styles.Add(progress.HasPart(C3TreasureProgress.FuseId) ? acquiredStyle : missingStyle);
+                styles.Add(progress.HasPart(C3TreasureProgress.ChipId) ? acquiredStyle : missingStyle);
+                styles.Add(progress.HasPart(C3TreasureProgress.FilterId) ? acquiredStyle : missingStyle);
+            }
+            labels.Add(progress.AllPartsCollected ? "下一步" : "目前線索");
+            labels.Add(GuidanceText);
+            labels.Add("再按 P 關閉任務表");
+            styles.Add(smallStyle);
+            styles.Add(hintStyle);
+            styles.Add(smallStyle);
+            float[] heights = new float[labels.Count];
             for (int i = 0; i < heights.Length; i++)
             {
-                float paddingY = i == 7 ? 10f : 6f;
+                float paddingY = i == heights.Length - 2 ? 10f : 6f;
                 heights[i] = Mathf.Ceil(styles[i].CalcHeight(new GUIContent(labels[i]), textWidth))
                     + (paddingY * 2f + 4f) * scale;
             }
             Rect[] rects = CalculateContentRects(scale, contentWidth, heights);
-            float contentHeight = rects[8].yMax + 12f * scale;
+            float contentHeight = rects[rects.Length - 1].yMax + 12f * scale;
             Rect panel = CalculateSheetRect(Screen.width, Screen.height, contentHeight + 12f * scale);
             Fill(panel, PanelColor);
             Fill(new Rect(panel.x, panel.y, 4f * scale, panel.height), AccentColor);
@@ -170,12 +206,18 @@ namespace C3TreasurePuzzle
             Rect viewport = new Rect(panel.x + 6f * scale, panel.y + 6f * scale,
                 viewportWidth, panel.height - 12f * scale);
             Rect content = new Rect(0f, 0f, contentWidth, contentHeight);
-            scrollPosition = GUI.BeginScrollView(viewport, scrollPosition, content, false, false);
+            if (Event.current.type == EventType.ScrollWheel && viewport.Contains(Event.current.mousePosition))
+            {
+                scrollPosition.y = Mathf.Clamp(scrollPosition.y + Event.current.delta.y * 24f * scale,
+                    0f, Mathf.Max(0f, contentHeight - viewport.height));
+                Event.current.Use();
+            }
+            scrollPosition = GUI.BeginScrollView(viewport, scrollPosition, content, false, true);
             for (int i = 0; i < rects.Length; i++)
             {
-                if (i >= 3 && i <= 5) Fill(rects[i], RowColor);
-                if (i == 7) Fill(rects[i], HintColor);
-                float paddingY = (i == 7 ? 10f : 6f) * scale;
+                if (i >= 3 && i < rects.Length - 3) Fill(rects[i], RowColor);
+                if (i == rects.Length - 2) Fill(rects[i], HintColor);
+                float paddingY = (i == rects.Length - 2 ? 10f : 6f) * scale;
                 GUI.Label(new Rect(rects[i].x + 10f * scale, rects[i].y + paddingY,
                     textWidth, rects[i].height - 2f * paddingY), labels[i], styles[i]);
             }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using SDGAdventure.UI;
+using SDGAdventure.SharedPlayer;
 
 namespace C3TreasurePuzzle
 {
@@ -12,8 +13,29 @@ namespace C3TreasurePuzzle
         private C3Interactable currentTarget;
         private GUIStyle crosshairStyle;
         private GUIStyle promptStyle;
+        private PlayerInputService sharedInput;
+        private bool interactQueued;
 
         public void SetCamera(Camera value) => playerCamera = value;
+        public void UseSharedInput(PlayerInputService service)
+        {
+            if (sharedInput != null) sharedInput.InteractPressed -= QueueInteract;
+            sharedInput = service;
+            if (isActiveAndEnabled && sharedInput != null) sharedInput.InteractPressed += QueueInteract;
+        }
+
+        private void OnEnable()
+        {
+            if (sharedInput != null) sharedInput.InteractPressed += QueueInteract;
+        }
+
+        private void OnDisable()
+        {
+            if (sharedInput != null) sharedInput.InteractPressed -= QueueInteract;
+            interactQueued = false;
+        }
+
+        private void QueueInteract() => interactQueued = true;
 
         private void Awake()
         {
@@ -22,8 +44,11 @@ namespace C3TreasurePuzzle
 
         private void Update()
         {
+            bool interact = sharedInput != null ? interactQueued : Input.GetKeyDown(KeyCode.E);
+            interactQueued = false;
             currentTarget = null;
             if (playerCamera == null || Cursor.lockState != CursorLockMode.Locked ||
+                (sharedInput != null && sharedInput.Context != PlayerInputContext.Gameplay) ||
                 C3PuzzleConsole.BlocksGameplayInputThisFrame || C3CompletionScreen.BlocksGameplayInputThisFrame) return;
 
             // 只看第一個射線命中；牆或非互動物件會阻斷後方目標。
@@ -36,7 +61,7 @@ namespace C3TreasurePuzzle
             }
 
             // KeyDown 每次按鍵只觸發一次，不因停留或持續接觸重複執行。
-            if (currentTarget != null && Input.GetKeyDown(KeyCode.E))
+            if (currentTarget != null && interact)
             {
                 currentTarget.Interact(gameObject);
                 // A collected target can disable itself in Interact; hide its prompt this frame.
@@ -46,7 +71,9 @@ namespace C3TreasurePuzzle
 
         private void OnGUI()
         {
-            if (Cursor.lockState != CursorLockMode.Locked || C3PuzzleConsole.BlocksGameplayInputThisFrame ||
+            if (Cursor.lockState != CursorLockMode.Locked ||
+                (sharedInput != null && sharedInput.Context != PlayerInputContext.Gameplay) ||
+                C3PuzzleConsole.BlocksGameplayInputThisFrame ||
                 C3CompletionScreen.BlocksGameplayInputThisFrame) return;
             CjkGuiFont.Apply();
             if (crosshairStyle == null)
@@ -61,7 +88,8 @@ namespace C3TreasurePuzzle
             float centerY = Screen.height * 0.5f;
             GUI.Label(new Rect(centerX - 15f, centerY - 15f, 30f, 30f), "+", crosshairStyle);
             if (currentTarget != null)
-                GUI.Label(new Rect(centerX - 220f, centerY + 28f, 440f, 32f), currentTarget.DisplayName + "  [E] 互動", promptStyle);
+                GUI.Label(new Rect(centerX - 220f, centerY + 28f, 440f, 32f), currentTarget.DisplayName +
+                    "  [" + (sharedInput == null ? "E" : sharedInput.Keybindings.BindingDisplay("Gameplay", "Interact", 0)) + "] 互動", promptStyle);
         }
     }
 }

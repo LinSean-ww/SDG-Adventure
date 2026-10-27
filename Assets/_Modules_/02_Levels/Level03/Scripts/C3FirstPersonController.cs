@@ -1,4 +1,5 @@
 using UnityEngine;
+using SDGAdventure.SharedPlayer;
 
 namespace C3TreasurePuzzle
 {
@@ -34,8 +35,23 @@ namespace C3TreasurePuzzle
         private bool isCrouching;
         private Quaternion headRestLocalRotation;
         private readonly Collider[] clearanceHits = new Collider[32];
+        private PlayerInputService sharedInput;
+        private bool jumpQueued;
 
         public void SetViewTransform(Transform value) => viewTransform = value;
+        public void UseSharedInput(PlayerInputService service)
+        {
+            if (sharedInput != null) sharedInput.JumpPressed -= QueueJump;
+            sharedInput = service;
+            if (isActiveAndEnabled && sharedInput != null) sharedInput.JumpPressed += QueueJump;
+        }
+
+        private void OnEnable()
+        {
+            if (sharedInput != null) sharedInput.JumpPressed += QueueJump;
+        }
+
+        private void QueueJump() => jumpQueued = true;
 
         private void Awake()
         {
@@ -66,6 +82,24 @@ namespace C3TreasurePuzzle
 
         private void Update()
         {
+            if (sharedInput != null)
+            {
+                if (sharedInput.Context != PlayerInputContext.Gameplay ||
+                    C3PuzzleConsole.BlocksGameplayInputThisFrame || C3CompletionScreen.BlocksGameplayInputThisFrame)
+                {
+                    jumpQueued = false;
+                    return;
+                }
+                bool acceptsSharedInput = Cursor.lockState == CursorLockMode.Locked && viewTransform != null;
+                if (acceptsSharedInput)
+                    ApplyLook(sharedInput.Look * (0.08f * sharedInput.Keybindings.Settings.mouseSensitivity));
+                TickMovement(acceptsSharedInput ? sharedInput.Move : Vector2.zero,
+                    acceptsSharedInput && sharedInput.SprintActive,
+                    acceptsSharedInput && sharedInput.CrouchActive,
+                    acceptsSharedInput && jumpQueued, Time.deltaTime);
+                jumpQueued = false;
+                return;
+            }
             if (C3PuzzleConsole.BlocksGameplayInputThisFrame || C3CompletionScreen.BlocksGameplayInputThisFrame)
             {
                 TickMovement(Vector2.zero, false, false, false, Time.deltaTime);
@@ -167,6 +201,8 @@ namespace C3TreasurePuzzle
 
         private void OnDisable()
         {
+            if (sharedInput != null) sharedInput.JumpPressed -= QueueJump;
+            jumpQueued = false;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }

@@ -98,7 +98,8 @@ namespace M6IntegrationTests
             Assert.IsTrue(player.GetComponents<MonoBehaviour>().Any(x => x.GetType().Name == "C3PlayerInteractor"));
             Assert.IsFalse(SceneManager.GetActiveScene().GetRootGameObjects()
                 .SelectMany(root => root.GetComponentsInChildren<MonoBehaviour>(true))
-                .Any(x => x.GetType().FullName.Contains("SharedPlayer")), "M7 shared player must not be wired into C3 scene.");
+                .Any(x => x.GetType().Name == "SharedFirstPersonController"),
+                "C3 must keep its original controller instead of adding a second shared player.");
             controller.enabled = false;
             MethodInfo tick = controller.GetType().GetMethod("TickMovement", BindingFlags.NonPublic | BindingFlags.Instance);
             Assert.IsNotNull(tick);

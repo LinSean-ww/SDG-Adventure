@@ -4,6 +4,7 @@ using SDGAdventure.SharedPlayer;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
+using UnityEngine.EventSystems;
 
 namespace M7SharedPlayerTests
 {
@@ -51,12 +52,90 @@ namespace M7SharedPlayerTests
             Assert.AreEqual(1, Object.FindObjectsByType<PlayerInputService>(FindObjectsSortMode.None).Length);
 
             yield return SceneManager.LoadSceneAsync(C3, LoadSceneMode.Single);
+            yield return null;
             Assert.AreSame(original, PlayerInputService.Instance);
             Assert.AreEqual(1, Object.FindObjectsByType<PlayerInputService>(FindObjectsSortMode.None).Length);
-            Assert.AreEqual(PlayerInputContext.Inactive, original.Context);
+            Assert.AreEqual(PlayerInputContext.Gameplay, original.Context);
+            Assert.AreEqual(1, Object.FindObjectsByType<PlayerPauseMenu>(FindObjectsSortMode.None).Length);
+            Assert.AreEqual(1, Object.FindObjectsByType<EventSystem>(FindObjectsSortMode.None).Length);
 
             yield return SceneManager.LoadSceneAsync(Selection, LoadSceneMode.Single);
             Assert.AreSame(original, PlayerInputService.Instance);
+            Assert.AreEqual(1, Object.FindObjectsByType<PlayerInputService>(FindObjectsSortMode.None).Length);
+            Assert.AreEqual(PlayerInputContext.Inactive, original.Context);
+        }
+
+        [UnityTest]
+        public IEnumerator Level03MenuPausesResumesAndUsesExistingTransitions()
+        {
+            yield return SceneManager.LoadSceneAsync(C3, LoadSceneMode.Single);
+            yield return null;
+            PlayerInputService input = PlayerInputService.Instance;
+            PlayerPauseMenu menu = Object.FindFirstObjectByType<PlayerPauseMenu>();
+            Assert.IsNotNull(menu);
+            Assert.IsTrue(menu.HasLevelActions);
+            Assert.IsTrue(menu.UsesExternalTaskView);
+            var hudType = System.Type.GetType("C3TreasurePuzzle.C3TreasureHud, Assembly-CSharp", true);
+            var hud = UnityEngine.Object.FindFirstObjectByType(hudType);
+            var sheetOpen = hudType.GetProperty("TaskSheetOpen");
+            Assert.AreEqual(5, menu.Journal.TotalCount);
+            Assert.AreEqual(0, menu.Journal.CompletedCount);
+            Assert.AreEqual(PlayerInputContext.Gameplay, input.Context);
+            var progressType = System.Type.GetType("C3TreasurePuzzle.C3TreasureProgress, Assembly-CSharp", true);
+            var progress = UnityEngine.Object.FindFirstObjectByType(progressType);
+            Assert.IsTrue((bool)progress.GetType().GetMethod("TryCollect")
+                .Invoke(progress, new object[] { "fuse", "Fuse" }));
+            Assert.AreEqual(1, menu.Journal.CompletedCount);
+
+            menu.Pause();
+            Assert.AreEqual(PlayerMenuState.Paused, menu.State);
+            Assert.IsTrue(menu.View.IsVisible);
+            Assert.AreEqual(0f, Time.timeScale);
+            Assert.AreEqual(PlayerInputContext.UI, input.Context);
+            Assert.AreEqual(CursorLockMode.None, Cursor.lockState);
+            menu.OpenTasksFromPause();
+            Assert.AreEqual(PlayerMenuState.Tasks, menu.State);
+            Assert.IsTrue((bool)sheetOpen.GetValue(hud));
+            Assert.IsFalse(menu.View.IsVisible);
+            menu.CloseTasks();
+            Assert.AreEqual(PlayerMenuState.Paused, menu.State);
+            Assert.IsFalse((bool)sheetOpen.GetValue(hud));
+            Assert.IsTrue(menu.View.IsVisible);
+            Assert.AreEqual(0f, Time.timeScale);
+            menu.OpenSettings();
+            Assert.AreEqual(PlayerMenuState.Settings, menu.State);
+            menu.BackToPause();
+            menu.Resume();
+            Assert.AreEqual(1f, Time.timeScale);
+            Assert.AreEqual(PlayerInputContext.Gameplay, input.Context);
+            Assert.AreEqual(CursorLockMode.Locked, Cursor.lockState);
+
+            menu.OpenTasks();
+            Assert.AreEqual(PlayerMenuState.Tasks, menu.State);
+            Assert.IsTrue((bool)sheetOpen.GetValue(hud));
+            Assert.IsFalse(menu.View.IsVisible);
+            Assert.AreEqual(PlayerInputContext.UI, input.Context);
+            Assert.AreEqual(CursorLockMode.None, Cursor.lockState);
+            menu.CloseTasks();
+            Assert.IsFalse((bool)sheetOpen.GetValue(hud));
+            Assert.AreEqual(CursorLockMode.Locked, Cursor.lockState);
+            menu.Pause();
+            menu.RestartLevel();
+            yield return null;
+            Assert.AreEqual(C3, SceneManager.GetActiveScene().path);
+            Assert.AreEqual(1f, Time.timeScale);
+            Assert.AreEqual(PlayerInputContext.Gameplay, input.Context);
+            Assert.AreEqual(1, Object.FindObjectsByType<PlayerInputService>(FindObjectsSortMode.None).Length);
+            Assert.AreEqual(1, Object.FindObjectsByType<EventSystem>(FindObjectsSortMode.None).Length);
+            Assert.AreEqual(0, Object.FindFirstObjectByType<PlayerPauseMenu>().Journal.CompletedCount);
+
+            menu = Object.FindFirstObjectByType<PlayerPauseMenu>();
+            menu.Pause();
+            menu.ReturnToSelection();
+            yield return null;
+            Assert.AreEqual(Selection, SceneManager.GetActiveScene().path);
+            Assert.AreEqual(1f, Time.timeScale);
+            Assert.AreEqual(PlayerInputContext.Inactive, input.Context);
             Assert.AreEqual(1, Object.FindObjectsByType<PlayerInputService>(FindObjectsSortMode.None).Length);
         }
     }
